@@ -355,6 +355,14 @@ function love.load()
     ["q"] = love.graphics.newImage('sprites/blackQueen.png'),
     ["k"] = love.graphics.newImage('sprites/blackKing.png'),
   }
+  chess_outlines = {
+    ["P"] = love.graphics.newImage('sprites/pawnOutline.png'),
+    ["R"] = love.graphics.newImage('sprites/rookOutline.png'),
+    ["N"] = love.graphics.newImage('sprites/knightOutline.png'),
+    ["B"] = love.graphics.newImage('sprites/bishopOutline.png'),
+    ["Q"] = love.graphics.newImage('sprites/queenOutline.png'),
+    ["K"] = love.graphics.newImage('sprites/kingOutline.png')
+  }
 end
 
 function love.mousepressed(x,y,button)
@@ -418,9 +426,9 @@ function love.draw()
       end
     end
   end
-  love.graphics.setColor(100/255, 20/255, 255/255,0.5)
+  love.graphics.setColor(1,1,1)
   if sp_x ~= nil then
-    love.graphics.circle("fill",sp_x*r_size+r_size/2,(9-sp_y)*r_size+r_size/2, r_size/2.5)
+    love.graphics.draw(chess_outlines[board[letters[sp_x] .. sp_y]:upper()],sp_x*r_size,(9-sp_y)*r_size,0,r_size/50,r_size/50)
   end
   love.graphics.setColor(0/255, 217/255, 56/255,0.8)
   if highlights ~= nil then
