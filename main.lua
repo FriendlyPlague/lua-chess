@@ -1,12 +1,8 @@
 --[[A chess prototype built in lua curently in developement--]]
-win_w = 700
-win_h = 700
+win_w = 650
+win_h = 650
 board = {} --stores the board state
 letters = {'a','b','c','d','e','f','g','h'}
-highlights = {} --stores which spots to highlight as possible moves
-p_selected = false --stores wether a chess piece has been clicked
-sp_x = 0
-sp_y = 0
 function setUpBoard()
   board = {
     ["a1"] = "R",
