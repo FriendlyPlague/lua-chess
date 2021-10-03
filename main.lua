@@ -1,9 +1,10 @@
 --[[A chess prototype built in lua curently in developement--]]
-win_w = 650
-win_h = 650
+win_w = 650 --window width
+win_h = 650 --windo hight
 board = {} --stores the board state
 letters = {'a','b','c','d','e','f','g','h'}
 function setUpBoard()
+  --[[initilizes each space on the chess board--]]
   board = {
     ["a1"] = "R",
     ["b1"] = "N",
@@ -33,6 +34,7 @@ function setUpBoard()
     end
   end
 end
+
 function checkSpace(x,y,c)
   --[[checks if a space is empty or has an enemy in it
   and that an that is in range of the board--]]
@@ -46,6 +48,7 @@ function checkSpace(x,y,c)
   end
   return nil
 end
+
 function getPossibleMoves(x,y,p)
   --[[returns all possible moves for the given piece--]]
   p_moves = {}
@@ -317,7 +320,9 @@ function getPossibleMoves(x,y,p)
   end
   return p_moves
 end
+
 function returnMouseSquare(x,y)
+  --[[converts x and y into board coordinates--]]
   x = x - win_h/10
   y = y - win_h/10
   if x > 0 and y > 0 then
@@ -330,7 +335,10 @@ function returnMouseSquare(x,y)
   end
   return nil
 end
+
 function love.load()
+  --[[runs once on game start.
+  sets up window and loads images--]]
   love.window.setMode(win_w, win_h)
   love.window.setTitle ("lua chess")
   setUpBoard()
@@ -349,7 +357,10 @@ function love.load()
     ["k"] = love.graphics.newImage('sprites/blackKing.png'),
   }
 end
+
 function love.mousepressed(x,y,button)
+  --[[function runs when mousebutton is pressed.
+  allows the player to select a piece and move it--]]
   if button == 1 then
     local tmp_x,tmp_y = returnMouseSquare(x,y)
     if tmp_x ~= nil and board[letters[tmp_x] .. tmp_y] ~= ' ' and p_selected == false then
@@ -372,7 +383,9 @@ function love.mousepressed(x,y,button)
     end
   end
 end
+
 function love.update(dt)
+  --[[runs every frame--]]
   local m_x,m_y = love.mouse.getPosition()
   local tmp_x,tmp_y = returnMouseSquare(m_x,m_y)
   if tmp_x ~= nil and p_selected == false then
@@ -380,7 +393,9 @@ function love.update(dt)
     highlights = getPossibleMoves(tmp_x,tmp_y,board[letters[tmp_x] .. tmp_y])
   end
 end
+
 function love.draw()
+  --[[draws the board and graphics every frame--]]
   love.graphics.setBackgroundColor(66/255,153/255,133/255)
   local r_size = win_h/10
   local font = love.graphics.newFont("arial_narrow_7.ttf", 48/(80/r_size))
