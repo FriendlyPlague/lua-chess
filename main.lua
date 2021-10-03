@@ -1,7 +1,6 @@
 --[[A chess prototype built in lua curently in developement--]]
 win_w = 650 --window width
 win_h = 650 --windo hight
-board = {} --stores the board state
 letters = {'a','b','c','d','e','f','g','h'}
 function setUpBoard()
   --[[initilizes each space on the chess board--]]
@@ -378,8 +377,10 @@ function love.mousepressed(x,y,button)
         end
       end
       p_selected = false
+      sp_x,sp_y = nil,nil
     else
       p_selected = false
+      sp_x,sp_y = nil,nil
     end
   end
 end
@@ -416,6 +417,10 @@ function love.draw()
         love.graphics.draw(chess_pieces[board[letters[j] .. 9-i]],j*r_size,i*r_size,0,r_size/50,r_size/50)
       end
     end
+  end
+  love.graphics.setColor(100/255, 20/255, 255/255,0.5)
+  if sp_x ~= nil then
+    love.graphics.circle("fill",sp_x*r_size+r_size/2,(9-sp_y)*r_size+r_size/2, r_size/2.5)
   end
   love.graphics.setColor(0/255, 217/255, 56/255,0.8)
   if highlights ~= nil then
