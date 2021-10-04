@@ -36,55 +36,6 @@ function setUpBoard()
   end
 end
 
-function isCheck(c)
-  local x,y
-  if color == "WHITE" then
-    for i = 1,8 do
-      for j = 1,8 do
-        if board[letters[j] .. i] == "K" then
-          x = j
-          y = i
-        end
-      end
-    end
-    for i = 1,8 do
-      for j = 1,8 do
-        fp = board[letters[j] .. i]
-        if fp ~= " "  and fp == fp:lower() then
-          moves = getPossibleMoves(j,i,"BLACK")
-          for k,v in pairs(moves) do
-            if v[1] == x and v[2] == y then
-              return true
-            end
-          end
-        end
-      end
-    end
-  else
-    for i = 1,8 do
-      for j = 1,8 do
-        if board[letters[j] .. i] == "k" then
-          x = j
-          y = i
-        end
-      end
-    end
-    for i = 1,8 do
-      for j = 1,8 do
-        fp = board[letters[j] .. i]
-        if fp ~= " "  and fp == fp:lower() then
-          moves = getPossibleMoves(j,i,"WHITE")
-          for k,v in pairs(moves) do
-            if v[1] == x and v[2] == y then
-              return true
-            end
-          end
-        end
-      end
-    end
-  end
-  return false
-end
 function checkSpace(x,y,c)
   --[[checks if a space is empty or has an enemy in it
   and that an that is in range of the board--]]
@@ -365,6 +316,39 @@ function getPossibleMoves(x,y,p)
       else
         break
       end
+    end
+  elseif p == "K" or p == "k" then
+    space = checkSpace(x+1,y+1,c)
+    if space ~= nil then
+      table.insert(p_moves,space)
+    end
+    space = checkSpace(x+1,y,c)
+    if space ~= nil then
+      table.insert(p_moves,space)
+    end
+    space = checkSpace(x,y+1,c)
+    if space ~= nil then
+      table.insert(p_moves,space)
+    end
+    space = checkSpace(x-1,y-1,c)
+    if space ~= nil then
+      table.insert(p_moves,space)
+    end
+    space = checkSpace(x-1,y,c)
+    if space ~= nil then
+      table.insert(p_moves,space)
+    end
+    space = checkSpace(x,y-1,c)
+    if space ~= nil then
+      table.insert(p_moves,space)
+    end
+    space = checkSpace(x+1,y-1,c)
+    if space ~= nil then
+      table.insert(p_moves,space)
+    end
+    space = checkSpace(x-1,y-1,c)
+    if space ~= nil then
+      table.insert(p_moves,space)
     end
   else
   end
